@@ -10,9 +10,9 @@ const ListedBooks = () => {
 
   const [sortBy, setSortBy] = useState<"rating" | "pages" | "year">("rating");
 
-  console.log(sortBy);
+  // console.log(sortBy);
 
-  console.log(readBooks);
+  // console.log(readBooks);
 
   const sortBooks = (books: IBookType[])=> {
     const sortedBooks = [...books];

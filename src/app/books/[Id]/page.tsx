@@ -1,4 +1,3 @@
-
 import ReadButton from "@/app/components/bookDetails/ReadButton";
 import WishListButton from "@/app/components/bookDetails/WishListButton";
 import { IBookType } from "@/types/books.type";
@@ -11,9 +10,15 @@ interface IparamsType {
 }
 
 const getBooks = async () => {
-  const response = await fetch("http://localhost:3000//booksData.json");
-  const data = await response.json();
-  return data;
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/booksData.json`
+    );
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    throw new Error("Data fetching failed: ", { cause: error });
+  }
 };
 
 const BookDetailsPage = async ({ params }: IparamsType) => {
@@ -48,7 +53,9 @@ const BookDetailsPage = async ({ params }: IparamsType) => {
               />
             </div>
 
-            <span className="badge badge-outline badge-lg">{selectedBook.category}</span>
+            <span className="badge badge-outline badge-lg">
+              {selectedBook.category}
+            </span>
           </div>
 
           {/* Book Information */}
@@ -120,16 +127,17 @@ const BookDetailsPage = async ({ params }: IparamsType) => {
 
               <div className="rounded-xl bg-base-200 p-4">
                 <p className="text-xs text-base-content/60">PUBLICATION YEAR</p>
-                <p className="mt-1 font-semibold">{selectedBook.yearOfPublishing}</p>
+                <p className="mt-1 font-semibold">
+                  {selectedBook.yearOfPublishing}
+                </p>
               </div>
             </div>
 
             {/* Action */}
             <div className="mt-auto flex flex-wrap gap-3 pt-2">
-              <ReadButton book={selectedBook}/>
+              <ReadButton book={selectedBook} />
 
               <WishListButton book={selectedBook} />
-
             </div>
           </div>
         </div>

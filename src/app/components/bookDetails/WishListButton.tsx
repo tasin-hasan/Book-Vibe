@@ -6,7 +6,7 @@ import { useContext } from "react";
 import { toast } from "react-toastify";
 
 const WishListButton = ({ book }: { book: IBookType }) => {
-  const { wishList, setwishList } = useContext(BookContext);
+  const { wishList, setWishList } = useContext(BookContext);
 
   const handleWishlist = () => {
     const alreadyExist = wishList.some((item) => item.bookId === book.bookId);
@@ -16,7 +16,7 @@ const WishListButton = ({ book }: { book: IBookType }) => {
       return wishList;
     }
 
-    setwishList((wishList) => {
+    setWishList((wishList) => {
       return [...wishList, book];
     });
     toast.success(`${book.bookName} is added`);
